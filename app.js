@@ -10,7 +10,7 @@ const app = express();
 
 //middleware
 app.use(cors());
-
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //database connection
@@ -38,6 +38,18 @@ app.get("/api/listings/:id", async (req, res) => {
   const { id } = req.params;
   const listing = await Listing.findById(id);
   res.json(listing);
+});
+
+//create
+app.post("api/listings/create", async (req, res) => {
+  const { title, description, price } = req.body;
+  const listing = new Listing({
+    title: title,
+    description: description,
+    price: price,
+  });
+  await listing.save();
+  res.status(201).json(listing);
 });
 
 //port
