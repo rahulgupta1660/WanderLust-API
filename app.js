@@ -40,18 +40,6 @@ app.get("/api/listings/:id", async (req, res) => {
   res.json(listing);
 });
 
-//create
-app.post("api/listings/create", async (req, res) => {
-  const { title, description, price } = req.body;
-  const listing = new Listing({
-    title: title,
-    description: description,
-    price: price,
-  });
-  await listing.save();
-  res.status(201).json(listing);
-});
-
 //port
 const port = 9000;
 
